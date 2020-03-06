@@ -1,6 +1,10 @@
 package com.zhulei.controller;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import com.zhulei.domain.User;
+import com.zhulei.redis.KeyPrefix;
+import com.zhulei.redis.RedisService;
+import com.zhulei.redis.UserKey;
 import com.zhulei.result.CodeMsg;
 import com.zhulei.result.Result;
 import com.zhulei.service.UserService;
@@ -16,6 +20,9 @@ public class SampleController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RedisService redisService;
 
     @RequestMapping("/")
     @ResponseBody
@@ -57,4 +64,22 @@ public class SampleController {
         boolean tx = userService.tx();
         return Result.success(true);
     }
+
+    @RequestMapping("/redis/get")
+    @ResponseBody
+    public Result<User> redisGet() {
+        User user  = redisService.get(UserKey.getById, "" + 1, User.class);
+        return Result.success(user);
+    }
+
+    @RequestMapping("/redis/set")
+    @ResponseBody
+    public Result<Boolean> redisSet() {
+        User user=new User();
+        user.setId(1);
+        user.setName("1111");
+        redisService.set(UserKey.getById,""+1,user);
+        return Result.success(true);
+    }
+
 }
