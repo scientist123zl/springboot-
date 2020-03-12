@@ -12,6 +12,7 @@
     <artifactId>miaosha</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>miaosha</name>
+    <packaging>jar</packaging>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -87,6 +88,7 @@
     </dependencies>
 
     <build>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
