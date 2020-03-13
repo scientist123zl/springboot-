@@ -2,6 +2,7 @@ package com.zhulei.controller;
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import com.zhulei.domain.User;
+import com.zhulei.rabbitmq.MQSender;
 import com.zhulei.redis.KeyPrefix;
 import com.zhulei.redis.RedisService;
 import com.zhulei.redis.UserKey;
@@ -24,12 +25,35 @@ public class SampleController {
     @Autowired
     private RedisService redisService;
 
-    @RequestMapping("/")
-    @ResponseBody
-    String home() {
-        return "Hello World!";
-    }
+    @Autowired
+    MQSender mqSender;
 
+//    @RequestMapping("/mq")
+//    @ResponseBody
+//    public Result<String> mq() {
+//        mqSender.send("hello");
+//        return Result.success("hello world");
+//    }
+//    @RequestMapping("/mq/topic")
+//    @ResponseBody
+//    public Result<String> topic() {
+//        mqSender.sendTopic("hello 123456");
+//        return Result.success("hello world");
+//    }
+//
+//    @RequestMapping("/mq/fanout")
+//    @ResponseBody
+//    public Result<String> fanout() {
+//        mqSender.sendFanout("hello 123456");
+//        return Result.success("hello world");
+//    }
+//
+//    @RequestMapping("/mq/header")
+//    @ResponseBody
+//    public Result<String> header() {
+//        mqSender.sendHeader("hello 1234qw");
+//        return Result.success("hello world");
+//    }
     //1.rest api json输出 2.页面
     @RequestMapping("/hello")
     @ResponseBody
